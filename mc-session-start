@@ -1,9 +1,11 @@
 #!/bin/bash
 
 # launch a tmux session for a server, but not if the server is already running
+# requires the additional start script specified at $startscr
 
 cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 lockfile="./server.running.lock"
+startscr="./mc-server-start"
 
 successprint() {
 	echo "SERVER STARTED IN A DETACHED TMUX SESSION."
@@ -16,6 +18,13 @@ if [ -e "$lockfile" ]; then
 	echo "Launch Abort. Server is already running."
 	exit 1
 else
-	tmux new -d -s mcserver "./mc-server-start" && successprint
-	exit 0
+	if [ -e "$startscr" ]; then
+		tmux new -d -s mcserver "$startscr" && successprint
+		# tmux provides an additional check; it wont create 
+		# a session by name if it already exists.
+		exit 0
+	else
+		echo "Launch Abort. Launch script missing."
+		exit 1
+	fi
 fi
