@@ -11,8 +11,6 @@ if [ -e "$lockfile" ]; then
 else
 	touch "$lockfile"
 	echo "Server Launch..."
-#	replace test command with java server command
-#	uptime; echo "Press RETURN to continue."; read
 	java -Xms1G -Xmx1G -jar paper.jar
 	echo "Server Stopped."
 	rm "$lockfile"
