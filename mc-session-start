@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# launch a tmux session for a server, but not if the server is already running
+
+cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+lockfile="./server.running.lock"
+
+successprint() {
+	echo "SERVER STARTED IN A DETACHED TMUX SESSION."
+	echo " Use tmux commands to attach the session:"
+	echo "   from outside tmux: tmux attach -t mcserver"
+	echo "    from inside tmux: C-b s"
+}
+
+if [ -e "$lockfile" ]; then
+	echo "Launch Abort. Server is already running."
+	exit 1
+else
+	tmux new -d -s mcserver "./mc-server-start" && successprint
+	exit 0
+fi

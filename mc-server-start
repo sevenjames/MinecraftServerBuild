@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# launch a minecraft server, but not if it's already running
+
+cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+lockfile="./server.running.lock"
+
+if [ -e "$lockfile" ]; then
+	echo "Launch Abort. Server is already running."
+	exit 1
+else
+	touch "$lockfile"
+	echo "Server Launch..."
+#	replace test command with java server command
+#	uptime; echo "Press RETURN to continue."; read
+	java -Xms1G -Xmx1G -jar paper.jar
+	echo "Server Stopped."
+	rm "$lockfile"
+	echo "Press RETURN to continue."; read
+	exit 0
+fi
