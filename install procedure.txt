@@ -1,0 +1,89 @@
+2019-08-01
+
+================================================================================
+OS INSTALL
+linux ubuntu server 18.04.2
+download and verify checksum
+write to usb flash drive with etcher
+boot to flash drive
+do the install wizard
+	config as needed, most defaults are good
+	enable SSH server
+reboot at end of installation
+sudo shutdown
+remove everything except power and network
+boot
+connect via ssh
+
+POST INSTALL
+get accurate time zone location name:
+	sudo timedatectl list-timezones | grep <city>
+set time zone
+	sudo timedatectl set-timezone <zone name from previous step>
+	sudo shutdown -r
+update everything:
+	sudo apt-get update
+	sudo apt-get -y upgrade
+	sudo apt-get -y dist-upgrade
+	install some stuff
+	sudo apt-get install git
+	sudo apt-get install openjdk-11-jre-headless
+
+================================================================================
+MINECRAFT SERVER PAPERMC INSTALL
+	Explanation: https://www.spigotmc.org/wiki/what-is-spigot-craftbukkit-bukkit-vanilla-forg/
+	Summary: Paper > Spigot > CraftBukkit > Vanilla
+
+download a paper server jar from 
+	https://papermc.io/downloads or https://papermc.io/ci/
+	get the one with the version number in the name.
+	paper.jar and paperclip.jar are the same thing.
+
+create a server directory
+	mkdir ~/mcservers
+	mkdir ~/mcservers/newserver
+copy the server jar into server directory
+	cp path-to-server-jar-download ~/mcservers/newserver
+change pwd to the server directory
+	cd ~/mcservers/newserver
+symlink the versioned server to paper.jar
+	ln -s ./paper-146.jar ./paper.jar
+if config files have already been prepared
+	copy them into the server directory
+	skip ahead to the live run steps
+	use prepared wrapper scripts if possible.
+	the following sample start script is absolute bare minimum.
+create a run script in the server directory
+	start.sh
+		#!/bin/bash
+		cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+		java -Xms1G -Xmx1G -jar paper.jar
+	chmod +x start.sh
+run the server
+	./start.sh
+resolve the eula prompt
+run the server again
+	./start.sh
+wait until the server is ready. this first startup may take 5-10 minutes.
+stop the server
+	stop
+config config files as needed
+	server.properties
+	bukkit.yml
+	spigot.yml
+	paper.yml
+	ops.json
+	whitelist.json
+
+================================================================================
+use the inculded tmux wrapper scripts to run the server
+
+live run - direct, without any kind of wrapper
+	~/mcservers/newserver/start.sh
+
+live run - with tmux wrapper
+use tmux to start the server in a detached session
+	tmux new -d -s mcserver ~/mcservers/newserver/start.sh
+to attach to the session for interactive mc console:
+	tmux attach -t mcserver
+
