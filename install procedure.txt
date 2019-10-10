@@ -50,20 +50,12 @@ symlink the versioned server to paper.jar
 	ln -s ./paper-146.jar ./paper.jar
 if config files have already been prepared
 	copy them into the server directory
-	skip ahead to the live run steps
-	use prepared wrapper scripts if possible.
-	the following sample start script is absolute bare minimum.
-create a run script in the server directory
-	start.sh
-		#!/bin/bash
-		cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-		java -Xms1G -Xmx1G -jar paper.jar
-	chmod +x start.sh
-run the server
-	./start.sh
+	skip ahead to the final run step
+copy start scripts into the server directory
+run the server using the start script
+	./mc-session-start
 resolve the eula prompt
-run the server again
-	./start.sh
+run the server again.
 wait until the server is ready. this first startup may take 5-10 minutes.
 stop the server
 	stop
@@ -74,16 +66,22 @@ config config files as needed
 	paper.yml
 	ops.json
 	whitelist.json
+run the server again
+
 
 ================================================================================
-use the inculded tmux wrapper scripts to run the server
+Use tmux to wrap the server process into a session.
+The tmux session can then be detached from the terminal allowing the terminal to be closed.
+Without this the terminal would need to stay open to keep the server up.
 
-live run - direct, without any kind of wrapper
-	~/mcservers/newserver/start.sh
+run the inculded tmux wrapper script to run the server.
+	./mc-session-start
 
-live run - with tmux wrapper
-use tmux to start the server in a detached session
-	tmux new -d -s mcserver ~/mcservers/newserver/start.sh
-to attach to the session for interactive mc console:
+to detach the session
+	press control-b, then d
+
+you can now close the terminal session
+	the mc server continues to run in the background
+
+to re-attach to the tmux session for interactive minecraft console:
 	tmux attach -t mcserver
-
