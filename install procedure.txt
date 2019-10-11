@@ -48,10 +48,9 @@ change pwd to the server directory
 	cd ~/mcservers/newserver
 symlink the versioned server to paper.jar
 	ln -s ./paper-146.jar ./paper.jar
-if config files have already been prepared
-	copy them into the server directory
-	skip ahead to the final run step
 copy start scripts into the server directory
+if config files have already been prepared
+	copy them into the server directory and skip ahead to the final run step
 run the server using the start script
 	./mc-session-start
 resolve the eula prompt
@@ -66,12 +65,13 @@ config config files as needed
 	paper.yml
 	ops.json
 	whitelist.json
-run the server again
+run the server using the start script
+	./mc-session-start
 
 
 ================================================================================
-Use tmux to wrap the server process into a session.
-The tmux session can then be detached from the terminal allowing the terminal to be closed.
+The start scripts use tmux to wrap the server process into a session.
+The tmux session can then be detached from the terminal, allowing the terminal to be closed.
 Without this the terminal would need to stay open to keep the server up.
 
 run the inculded tmux wrapper script to run the server.
