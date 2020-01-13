@@ -11,7 +11,7 @@ sudo apt-get install openjdk-11-jre-headless
 ================================================================================
 MINECRAFT SERVER PAPERMC INSTALL
 	Explanation: https://www.spigotmc.org/wiki/what-is-spigot-craftbukkit-bukkit-vanilla-forg/
-	Summary: Paper > Spigot > CraftBukkit > Vanilla
+	Summary of lineage: Paper > Spigot > CraftBukkit > Vanilla
 
 download a paper server jar from 
 	https://papermc.io/downloads or https://papermc.io/ci/
