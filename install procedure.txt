@@ -1,33 +1,12 @@
+MINECRAFT SERVER ON LINUX SERVER
 2019-08-01
 
 ================================================================================
 OS INSTALL
 linux ubuntu server 18.04.2
-download and verify checksum
-write to usb flash drive with etcher
-boot to flash drive
-do the install wizard
-	config as needed, most defaults are good
-	enable SSH server
-reboot at end of installation
-sudo shutdown
-remove everything except power and network
-boot
-connect via ssh
-
-POST INSTALL
-get accurate time zone location name:
-	sudo timedatectl list-timezones | grep <city>
-set time zone
-	sudo timedatectl set-timezone <zone name from previous step>
-	sudo shutdown -r
-update everything:
-	sudo apt-get update
-	sudo apt-get -y upgrade
-	sudo apt-get -y dist-upgrade
-	install some stuff
-	sudo apt-get install git
-	sudo apt-get install openjdk-11-jre-headless
+additional package:
+sudo apt-get install git
+sudo apt-get install openjdk-11-jre-headless
 
 ================================================================================
 MINECRAFT SERVER PAPERMC INSTALL
